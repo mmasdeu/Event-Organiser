@@ -127,7 +127,7 @@ function eventorganiser_public_fullcalendar() {
 			$event=array();
 
 			//Title and url
-			$event['title']=html_entity_decode(get_the_title($post->ID),ENT_QUOTES,'UTF-8');
+			$event['title']=html_entity_decode(get_the_title($post->ID) . ' -- ' . eo_get_speaker() . ' (' . eo_get_affiliation() . ')',ENT_QUOTES,'UTF-8'); // Marc
 			$link = esc_js(get_permalink( $post->ID));
 
 			/**
@@ -341,6 +341,7 @@ function eventorganiser_admin_calendar() {
 				$colour='';
 				//Get title, append status if applicable
 				$title = get_the_title();
+				$title.= ' - '.eo_get_speaker().' ('.eo_get_affiliation().')';
 				if(!empty($post->post_password)){
 					$title.=' - '.__('Protected');
 				}elseif($post->post_status=='private'){

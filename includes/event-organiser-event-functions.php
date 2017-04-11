@@ -225,6 +225,16 @@ function eo_get_by_postid($post_id,$deprecated=0, $occurrence_id=0){
  * @param int $deprecated (Was) the occurrence id, supply this as the third argument
  * @return string|DateTime the start date formated to given format, as accepted by PHP date or a DateTime object if DATETIMEOBJ is given as format.
  */
+function eo_get_speaker() {
+	$post_id       = (int) ( empty($post_id) ? get_the_ID() : $post_id);
+	return get_post_meta($post_id,"Speaker",true);
+}
+
+function eo_get_affiliation() {
+	$post_id       = (int) ( empty($post_id) ? get_the_ID() : $post_id);
+	return get_post_meta($post_id,"Affiliation",true);
+}
+
 function eo_get_the_start( $format = 'd-m-Y', $post_id = 0, $occurrence_id = 0, $deprecated = 0 ) {
 	global $post;
 	$event = $post;
@@ -1296,7 +1306,7 @@ function eo_get_add_to_google_link( $event_id = 0, $occurrence_id = 0 ){
 	$url = add_query_arg( array(
 			'text'     => get_the_title(),
 			'dates'    => $start->format( $format ) . '/' . $end->format( $format ),
-			'details'  => esc_html( $excerpt ),
+			'details'  => get_post_meta(get_the_ID(),"Speaker",true) . " (" . get_post_meta(get_the_ID(),"Affiliation",true) . ").\r\n" . PHP_EOL . " Abstract: " . $post->post_content . ". " . esc_html( $excerpt ),
 			'sprop'    => get_bloginfo( 'name' ),
 			'location' => $venue,
 	), 'http://www.google.com/calendar/event?action=TEMPLATE' );
@@ -1341,7 +1351,7 @@ function eo_has_event_finished( $event_id = false, $occurrence_id = false ) {
  * * **axisformat** (string) Axis time format (for day/week views). WP's time format option.
  * * **key** (bool) Whether to show a category key. Default false.
  * * **tooltip** (bool) Whether to show a tooltips. Default true. Content is filtered by [`eventorganiser_event_tooltip`](http://codex.wp-event-organiser.com/hook-eventorganiser_event_tooltip.html)
- * * **users_events** - (bool) True to show only eents for which the current user is attending
+ * * **users_events** - (bool) True to show only events for which the current user is attending
  * * **weekends** (bool) Whether to include weekends in the calendar. Default true.
  * * **mintime** (string) Earliest time to show on week/day views. Default '00:00',
  * * **maxtime** (string) Latest time to show on week/day views. Default '24:00',

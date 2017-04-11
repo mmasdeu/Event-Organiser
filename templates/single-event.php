@@ -36,8 +36,8 @@ get_header(); ?>
 
 			<header class="entry-header">
 
-				<!-- Display event title -->
-				<h1 class="entry-title"><?php the_title(); ?></h1>
+				<!-- Display event title, including Speaker and Affiliation -->
+				<h1 class="entry-title"><strong>Speaker: </strong> <?php echo get_post_meta(get_the_ID(),"Speaker",true); ?> (<?php echo get_post_meta(get_the_ID(),"Affiliation",true); ?>)</h1>
 
 			</header><!-- .entry-header -->
 	

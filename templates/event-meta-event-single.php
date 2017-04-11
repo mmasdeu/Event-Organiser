@@ -53,6 +53,8 @@
 			<li><strong><?php esc_html_e( 'Date', 'eventorganiser' );?>:</strong> <?php echo eo_format_event_occurrence();?></li>
 		<?php } ?>
 
+<!--		<?php if (eo_get_speaker()) {?><li><strong>Speaker:</strong> <?php echo get_post_meta(get_the_ID(), "Speaker",true); ?> (<?php echo get_post_meta(get_the_ID(), "Affiliation",true); ?>) </li>
+		<?php } ?> -->
 		<?php if ( eo_get_venue() ) {
 			$tax = get_taxonomy( 'event-venue' ); ?>
 			<li><strong><?php echo esc_html( $tax->labels->singular_name ) ?>:</strong> <a href="<?php eo_venue_link(); ?>"> <?php eo_venue_name(); ?></a></li>

@@ -13,6 +13,9 @@
  */
 function eventorganiser_event_add_columns( $columns ) {
 
+	//Set Speaker/Affiliation column
+	$columns['speaker'] = __( 'Speaker', 'eventorganiser' );
+
 	unset( $columns['date'] );//Unset unnecessary columns
 
 	//Set 'title' column title
@@ -85,6 +88,9 @@ function eventorganiser_event_fill_columns( $column_name, $id ) {
 				echo '<span aria-hidden="true">&#8212;</span><span class="screen-reader-text">' . $taxonomy_object->labels->no_terms . '</span>';
 			}
 			break;
+		case 'speaker':
+		       echo eo_get_speaker() . ' (' . eo_get_affiliation() . ')';
+		       break;
 
 		case 'datestart':
 			$schedule = eo_get_event_schedule( $series_id );
